@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "CoenraadS.bracket-pair-colorizer",
+        "audentio.audentio-javascript-snippets",
+        "dbaeumer.vscode-eslint",
+        "aaron-bond.better-comments",
+        "esbenp.prettier-vscode",
+        "msjsdiag.debugger-for-chrome"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "responsive-loader",
+  "version": "1.0.0",
+  "description": "Responsive image loader",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Audentio/responsive-loader.git"
+  },
+  "keywords": [
+    "responsive",
+    "webpack-loader",
+    "webpack"
+  ],
+  "author": "Audentio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Audentio/responsive-loader/issues"
+  },
+  "homepage": "https://github.com/Audentio/responsive-loader#readme",
+  "dependencies": {
+    "loader-utils": "^1.2.3",
+    "schema-utils": "^2.6.4",
+    "sharp": "^0.24.0"
+  },
+  "devDependencies": {
+    "@audentio/eslint-config-standard": "^2.3.0",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "babel-jest": "^25.1.0",
+    "ejs": "^3.0.1",
+    "eslint-config-prettier": "^6.10.0",
+    "jest": "^25.1.0",
+    "memfs": "^3.0.4",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5"
+  }
+}

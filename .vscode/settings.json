@@ -1,0 +1,30 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.formatOnSave": true,
+    "breadcrumbs.enabled": true,
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "typescript.updateImportsOnFileMove.enabled": "never",
+
+    "emmet.includeLanguages": {
+        "typescriptreact": "javascriptreact",
+        "javascript": "javascriptreact"
+    },
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Fira Code, Office Code Pro, Menlo, Monaco, 'Courier New', monospace",
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+
+    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "scss.lint.unknownProperties": "ignore",
+    "[yaml]": {
+        "editor.formatOnSave": false,
+        "editor.fontFamily": "Office Code Pro, Menlo, Monaco, 'Courier New', monospace"
+    },
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "files.exclude": {
+        "**/.ssr-cache": true,
+        "**/logs": true,
+        "**/dist": true
+    }
+}

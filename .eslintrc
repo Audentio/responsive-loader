@@ -1,0 +1,6 @@
+{
+    "extends": ["@audentio/standard", "prettier"],
+    "rules": {
+        "dot-notation": ["off"]
+    }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "responsive-loader",
+  "name": "responsive-loader-audentio",
   "version": "2.0.0",
   "description": "A webpack loader for responsive images",
   "main": "lib/index.js",

@@ -78,21 +78,28 @@ export default function loader(content: Buffer) {
     );
   }
 
+  let originalExtension = path.extname(this.resourcePath).replace(/\./, '');
+
   const createFile = ({
     data,
     width,
     height,
+    ext,
   }: {
     data: Buffer,
     width: string | number,
     height: string | number,
   }) => {
-    const fileName = interpolateName(this, name, {
+    let fileName = interpolateName(this, name, {
       context: outputContext,
       content: data,
     })
       .replace(/\[width\]/gi, width)
       .replace(/\[height\]/gi, height);
+
+    if (ext) {
+      fileName = fileName.replace(`.${originalExtension}`, `.${ext}`)
+    }
 
     const { outputPath, publicPath } = getOutputAndPublicPath(fileName, config);
 
@@ -132,8 +139,9 @@ export default function loader(content: Buffer) {
 
   img
     .metadata()
-    .then((metadata) => {
+    .then(async (metadata) => {
       let promises = [];
+      let webpPromises = [];
       const widthsToGenerate = new Set();
 
       (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
@@ -149,6 +157,14 @@ export default function loader(content: Buffer) {
             })
           );
         }
+
+        webpPromises.push(
+          img.resize({
+            width,
+            options: adapterOptions,
+            mime: 'image/webp',
+          })
+        );
       });
 
       if (outputPlaceholder) {
@@ -161,23 +177,34 @@ export default function loader(content: Buffer) {
         );
       }
 
+      const webpResults = await Promise.all(webpPromises)
+
+      const createWebp = (props) => createFile({ ...props, ext: 'webp' })
+
       return Promise.all(promises).then((results) =>
         outputPlaceholder
           ? {
-              files: results.slice(0, -1).map(createFile),
-              placeholder: createPlaceholder(results[results.length - 1], mime),
+            files: results.slice(0, -1).map(createFile),
+            webpFiles: webpResults.slice(0, -1).map(createWebp),
+            placeholder: createPlaceholder(results[results.length - 1], mime),
             }
           : {
               files: results.map(createFile),
+              webpFiles: webpResults.slice(0, -1).map(createWebp),
             }
       );
     })
-    .then(({ files, placeholder }) => {
+    .then(({ files, placeholder, webpFiles }) => {
       const srcset = files.map((f) => f.src).join('+","+');
+      const srcsetWebp = webpFiles.map((f) => f.src).join('+","+');
       const images = files
         .map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`)
         .join(",");
-      const firstImage = files[0];
+        const imagesWebp = webpFiles
+        .map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`)
+        .join(",");
+        const firstImage = files[0];
+        const firstImageWebp = webpFiles[0];
 
       loaderCallback(
         null,
@@ -185,6 +212,11 @@ export default function loader(content: Buffer) {
           srcSet: ${srcset},
           images:[ ${images}],
           src: ${firstImage.path},
+
+          srcSetWebp: ${srcsetWebp || '""'},
+          imagesWebp:[ ${imagesWebp}],
+          srcWebp: ${firstImageWebp ? firstImageWebp.path : '""'},
+
           toString:function(){return ${firstImage.path}},
           placeholder: ${placeholder},
           width: ${firstImage.width},

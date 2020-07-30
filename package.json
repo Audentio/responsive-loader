@@ -10,7 +10,8 @@
     "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/*.webp test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/**/*.webp test/**/build/test.js",
     "build": "babel src/ -d lib/ --copy-files",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "flow && npm run build && npm run clean-test && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest"
+    "test": "flow && npm run build && npm run clean-test && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest",
+    "release": "yarn build && release-it"
   },
   "files": [
     "lib",
@@ -19,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dazuaz/responsive-loader.git"
+    "url": "git+https://github.com/audentio/responsive-loader.git"
   },
   "keywords": [
     "webpack",
@@ -27,20 +28,18 @@
     "loader",
     "srcset"
   ],
-  "author": "Jeremy Stucki <jeremy@interactivethings.com>",
-  "contributors": [
-    "Daniel Zuloaga <daniel@staticprops.com> (https://staticprops.com/)"
-  ],
+  "author": "Audentio",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/dazuaz/responsive-loader/issues"
+    "url": "https://github.com/audentio/responsive-loader/issues"
   },
-  "homepage": "https://github.com/dazuaz/responsive-loader",
+  "homepage": "https://github.com/audentio/responsive-loader",
   "peerDependencies": {
     "webpack": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
     "loader-utils": "^2.0.0",
+    "release-it": "^13.6.6",
     "schema-utils": "^2.7.0"
   },
   "devDependencies": {

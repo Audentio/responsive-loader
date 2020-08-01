@@ -185,12 +185,12 @@ export default function loader(content: Buffer) {
         outputPlaceholder
           ? {
             files: results.slice(0, -1).map(createFile),
-            webpFiles: webpResults.slice(0, -1).map(createWebp),
+            webpFiles: webpResults.map(createWebp),
             placeholder: createPlaceholder(results[results.length - 1], mime),
             }
           : {
               files: results.map(createFile),
-              webpFiles: webpResults.slice(0, -1).map(createWebp),
+              webpFiles: webpResults.map(createWebp),
             }
       );
     })
